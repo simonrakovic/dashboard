@@ -23,6 +23,7 @@ class App extends Component {
 
     };
 
+
     /*
     fetch('https://api.darksky.net/forecast/b69e234c7d2acaee2e547c057c23d3d5/37.8267,-122.4233')
       .then(results => {
@@ -32,9 +33,17 @@ class App extends Component {
         console.log(data)
       })
     */
+
+  }
+
+  updateCameraImage(){
+    setInterval(function(){
+      this.camera.forceUpdate()
+     }, 2000);
   }
 
   toggleCamera(){
+    if(this.state.cameraIsActive)this.updateCameraImage()
     this.setState({cameraIsActive: this.state.cameraIsActive ? false:true})
   }
 
@@ -63,7 +72,7 @@ class App extends Component {
       )
     }else if(displayedTab === 2){
       display = (
-        <iframe height="480" width="100%" src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyBM7VLazAkhlF4ytelXMKNBMFc1EHD9TVI&origin=Drenov+Grič+174f,Slovenia&destination=Tbilisijska+57,Slovenia"></iframe>
+        <iframe  height="480" width="100%" src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyBM7VLazAkhlF4ytelXMKNBMFc1EHD9TVI&origin=Drenov+Grič+174f,Slovenia&destination=Tbilisijska+57,Slovenia"></iframe>
       )
     }else if(displayedTab === 3){
       display = (
@@ -76,7 +85,7 @@ class App extends Component {
         <Row>
             {
               this.state.cameraIsActive ? (
-                <img width="800" height="480" src="http://192.168.0.220/ISAPI/Streaming/channels/101/picture?videoResolutionWidth=1920&videoResolutionHeight=1080" />
+                <img ref={(ref)=>this.camera = ref} width="800" height="480" src="http://192.168.0.220/ISAPI/Streaming/channels/101/picture?videoResolutionWidth=1920&videoResolutionHeight=1080" />
               ):(
                 <Col md={12}>
                   <Row>
