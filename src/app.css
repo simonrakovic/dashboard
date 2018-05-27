@@ -1,0 +1,15 @@
+.clock {
+  height: 240px; }
+  .clock time {
+    width: 100%;
+    text-align: center;
+    line-height: 240px;
+    font-size: 8em; }
+
+.navigation-bar .btn {
+  width: 100%;
+  height: 120px;
+  border-radius: 0px;
+  border-bottom: 1px solid black; }
+  .navigation-bar .btn:active {
+    box-shadow: none; }
