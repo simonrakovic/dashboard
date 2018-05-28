@@ -1,13 +1,87 @@
 
+$theme-color: #6c757d;
+$text-color: #6c757d;
+
+.btn{
+  box-shadow: none!important;
+}
+
+
+
 .clock{
-  height: 240px;
+  margin-top: 20px;
+  height: 120px;
+  color: $text-color;
   time{
     width: 100%;
     text-align: center;
-    line-height: 240px;
+    line-height: 120px;
     font-size: 8em;
   }
 }
+////////////////////////////////////////////////////////////
+.current-weather{
+  text-align: center;
+  color:$text-color;
+
+  .weather-icon{
+    display: inline-block;
+    font-size: 6.5em;
+    margin-right: 15px;
+  }
+  .current-temp{
+    display: inline-block;
+    font-size: 6.5em;
+  }
+}
+
+.current-additional-info{
+  margin-top: -20px;
+  color:$text-color;
+  .data{
+    text-align: center;
+    font-weight: bold;
+    font-size: 1em;
+  }
+
+  i{
+    font-size: 2em;
+  }
+
+}
+.hourly-weather-data{
+  margin-top: 25px;
+  color: $text-color;
+
+  &:nth-child(2n){
+    background: #6c757d;
+    color: white;
+  }
+
+  .hourly-weather-data-column{
+
+    height: 120px;
+    text-align: center;
+    line-height: 40px;
+
+    .hour{
+      width: 100%;
+    }
+
+    .weather-icon{
+      width: 100%;
+      font-size: 1.7em;
+    }
+
+    .temperature{
+      font-weight: bold;
+      width: 100%;
+    }
+  }
+}
+
+
+////////////////////////////////////////////////////////////
 .navigation-bar{
   .btn{
     width: 100%;
@@ -17,8 +91,100 @@
 
     border-bottom: 1px solid black;
 
-    &:active{
+    &:active:focus{
       box-shadow: none;
+      outline-style: none;
+    }
+    &:focus{
+      box-shadow: none;
+      outline-style: none;
+    }
+
+    &.active{
+      box-shadow: none;
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////
+.watering-container{
+
+
+
+  .menu-buttons{
+    height: 120px;
+    .btn{
+      width: 50%;
+      border-radius: 0px;
+      border-left: 1px solid black;
+    }
+  }
+  .choose-buttons{
+    margin-top: 40px;
+
+    height: 120px;
+
+    .btn{
+      height: 80px;
+      border-radius: 2px;
+      border-width: 2px;
+      border-color: $theme-color;
+      background: white;
+      font-weight: bold;
+      color:$text-color;
+    }
+  }
+
+  .time-input{
+    .input-range__track--active{
+      background: $theme-color;
+    }
+
+    .input-range__slider{
+      background: $theme-color;
+      border-color: $theme-color;
+    }
+
+    .input-range__label-container{
+      font-size: 1.5em;
+      font-weight: bold;
+
+      line-height: 0;
+    }
+
+    .input-range__label--min{
+      display: none;
+    }
+
+    .input-range__label--max{
+      display: none;
+    }
+
+    margin-top: 20px;
+    height: 120px;
+  }
+
+  .send-button{
+    margin-top: -40px;
+    text-align: center;
+    .btn{
+
+      width: 50%;
+      border-radius: 2px;
+      height: 80px;
+    }
+  }
+
+  .button-stop-shower{
+    margin-top: 120px;
+    .btn{
+      width: 50%;
+      height: 120px;
+      margin-left: auto;
+      margin-right: auto;
+      background: #d9534f;
+
+      font-size: 2em;
     }
   }
 }

@@ -6,7 +6,7 @@ var express = require('express');        // call express
 var app = express();                 // define our app using express
 var path = require('path');
 var bodyParser = require('body-parser');
-
+var axios = require('axios');
 var ipcamera	= require('./hikvision');
 
 var SSE = require('express-sse');
@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'build')))
 app.use(express.static(path.join(__dirname, 'public')))
-
+app.use('/font',express.static(path.join(__dirname, 'fonts')))
 var port = process.env.PORT || 4000;        // set our port
 
 
@@ -29,7 +29,7 @@ var options = {
 	pass 	: 'Nomis1992!',
 	log 	: true,
 };
-var hikvision 	= new ipcamera.hikvision(options);
+//var hikvision 	= new ipcamera.hikvision(options);
 
 // ROUTES FOR OUR API
 // =============================================================================
@@ -45,12 +45,28 @@ app.get('/', function(req, res) {
 // more routes for our API will happen here
 router.get('/camera/alarm/stream', sse.init);
 
-hikvision.on('alarm', function(code,action,index) {
-	if (code === 'VideoMotion'   && action === 'Start'){
-		console.log(getDateTime() + ' Channel ' + index + ': Video Motion Detected')
-		sse.send({active:true});
-	}
-});
+/*
+try{
+	hikvision.on('alarm', function(code,action,index) {
+		if (code === 'VideoMotion'   && action === 'Start'){
+			console.log(getDateTime() + ' Channel ' + index + ': Video Motion Detected')
+			sse.send({active:true});
+		}
+	});
+}catch(e){
+
+}
+*/
+
+router.get('/weather', function(req, res){
+		axios.get('https://api.darksky.net/forecast/b69e234c7d2acaee2e547c057c23d3d5/45.996813,14.332931')
+	  .then(function (response) {
+	    res.send(response.data)
+	  })
+	  .catch(function (error) {
+	    console.log(error);
+	  });
+})
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api

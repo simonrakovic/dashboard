@@ -1,15 +1,120 @@
+.btn {
+  box-shadow: none !important; }
+
 .clock {
-  height: 240px; }
+  margin-top: 20px;
+  height: 120px;
+  color: #6c757d; }
   .clock time {
     width: 100%;
     text-align: center;
-    line-height: 240px;
+    line-height: 120px;
     font-size: 8em; }
+
+.current-weather {
+  text-align: center;
+  color: #6c757d; }
+  .current-weather .weather-icon {
+    display: inline-block;
+    font-size: 6.5em;
+    margin-right: 15px; }
+  .current-weather .current-temp {
+    display: inline-block;
+    font-size: 6.5em; }
+
+.current-additional-info {
+  margin-top: -20px;
+  color: #6c757d; }
+  .current-additional-info .data {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1em; }
+  .current-additional-info i {
+    font-size: 2em; }
+
+.hourly-weather-data {
+  margin-top: 25px;
+  color: #6c757d; }
+  .hourly-weather-data:nth-child(2n) {
+    background: #6c757d;
+    color: white; }
+  .hourly-weather-data .hourly-weather-data-column {
+    height: 120px;
+    text-align: center;
+    line-height: 40px; }
+    .hourly-weather-data .hourly-weather-data-column .hour {
+      width: 100%; }
+    .hourly-weather-data .hourly-weather-data-column .weather-icon {
+      width: 100%;
+      font-size: 1.7em; }
+    .hourly-weather-data .hourly-weather-data-column .temperature {
+      font-weight: bold;
+      width: 100%; }
 
 .navigation-bar .btn {
   width: 100%;
   height: 120px;
   border-radius: 0px;
   border-bottom: 1px solid black; }
-  .navigation-bar .btn:active {
+  .navigation-bar .btn:active:focus {
+    box-shadow: none;
+    outline-style: none; }
+  .navigation-bar .btn:focus {
+    box-shadow: none;
+    outline-style: none; }
+  .navigation-bar .btn.active {
     box-shadow: none; }
+
+.watering-container .menu-buttons {
+  height: 120px; }
+  .watering-container .menu-buttons .btn {
+    width: 50%;
+    border-radius: 0px;
+    border-left: 1px solid black; }
+
+.watering-container .choose-buttons {
+  margin-top: 40px;
+  height: 120px; }
+  .watering-container .choose-buttons .btn {
+    height: 80px;
+    border-radius: 2px;
+    border-width: 2px;
+    border-color: #6c757d;
+    background: white;
+    font-weight: bold;
+    color: #6c757d; }
+
+.watering-container .time-input {
+  margin-top: 20px;
+  height: 120px; }
+  .watering-container .time-input .input-range__track--active {
+    background: #6c757d; }
+  .watering-container .time-input .input-range__slider {
+    background: #6c757d;
+    border-color: #6c757d; }
+  .watering-container .time-input .input-range__label-container {
+    font-size: 1.5em;
+    font-weight: bold;
+    line-height: 0; }
+  .watering-container .time-input .input-range__label--min {
+    display: none; }
+  .watering-container .time-input .input-range__label--max {
+    display: none; }
+
+.watering-container .send-button {
+  margin-top: -40px;
+  text-align: center; }
+  .watering-container .send-button .btn {
+    width: 50%;
+    border-radius: 2px;
+    height: 80px; }
+
+.watering-container .button-stop-shower {
+  margin-top: 120px; }
+  .watering-container .button-stop-shower .btn {
+    width: 50%;
+    height: 120px;
+    margin-left: auto;
+    margin-right: auto;
+    background: #d9534f;
+    font-size: 2em; }
