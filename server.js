@@ -29,7 +29,7 @@ var options = {
 	pass 	: 'Nomis1992!',
 	log 	: true,
 };
-//var hikvision 	= new ipcamera.hikvision(options);
+var hikvision 	= new ipcamera.hikvision(options);
 
 // ROUTES FOR OUR API
 // =============================================================================
@@ -45,7 +45,7 @@ app.get('/', function(req, res) {
 // more routes for our API will happen here
 router.get('/camera/alarm/stream', sse.init);
 
-/*
+
 try{
 	hikvision.on('alarm', function(code,action,index) {
 		if (code === 'VideoMotion'   && action === 'Start'){
@@ -56,7 +56,7 @@ try{
 }catch(e){
 
 }
-*/
+
 
 router.get('/weather', function(req, res){
 		axios.get('https://api.darksky.net/forecast/b69e234c7d2acaee2e547c057c23d3d5/45.996813,14.332931')
