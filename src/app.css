@@ -118,3 +118,53 @@
     margin-right: auto;
     background: #d9534f;
     font-size: 2em; }
+
+.watering-container .schedule-container {
+  margin-top: 20px; }
+  .watering-container .schedule-container .shower-buttons .btn {
+    height: 80px;
+    border-radius: 0px;
+    margin-left: 20px;
+    width: 44%; }
+  .watering-container .schedule-container .time-picker {
+    margin-left: 5px;
+    margin-top: 15px; }
+    .watering-container .schedule-container .time-picker .time_picker_container {
+      position: relative;
+      width: 100%; }
+      .watering-container .schedule-container .time-picker .time_picker_container .preview_container {
+        width: 100%;
+        padding-left: 0px;
+        position: relative;
+        text-align: center;
+        font-size: 1.8em;
+        font-weight: bold; }
+        .watering-container .schedule-container .time-picker .time_picker_container .preview_container svg {
+          display: none; }
+    .watering-container .schedule-container .time-picker .outside_container .time_picker_modal_container {
+      top: -195px; }
+  .watering-container .schedule-container .duration-slider {
+    margin-top: 15px;
+    margin-left: 5px; }
+    .watering-container .schedule-container .duration-slider .input-range {
+      margin-left: 5px;
+      width: 100%; }
+    .watering-container .schedule-container .duration-slider .input-range__track--active {
+      background: #6c757d; }
+    .watering-container .schedule-container .duration-slider .input-range__slider {
+      background: #6c757d;
+      border-color: #6c757d; }
+    .watering-container .schedule-container .duration-slider .input-range__label-container {
+      font-size: 1.5em;
+      font-weight: bold;
+      line-height: 0; }
+    .watering-container .schedule-container .duration-slider .input-range__label--min {
+      display: none; }
+    .watering-container .schedule-container .duration-slider .input-range__label--max {
+      display: none; }
+  .watering-container .schedule-container .button-schedule-save .btn {
+    margin-top: 40px;
+    margin-left: 20px;
+    width: 100%;
+    border-radius: 0px;
+    height: 60px; }

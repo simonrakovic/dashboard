@@ -187,4 +187,93 @@ $text-color: #6c757d;
       font-size: 2em;
     }
   }
+///////////////////////////////////////////////////
+  .schedule-container{
+    margin-top: 20px;
+
+    .shower-buttons{
+      .btn{
+
+        height: 80px;
+        border-radius: 0px;
+        margin-left: 20px;
+        width: 44%;
+      }
+    }
+
+    .time-picker{
+
+      margin-left: 5px;
+      margin-top: 15px;
+
+      .time_picker_container{
+        position: relative;
+        width: 100%;
+        .preview_container{
+          width: 100%;
+          padding-left: 0px;
+          position: relative;
+          text-align: center;
+          font-size: 1.8em;
+          font-weight: bold;
+          svg{
+            display: none;
+          }
+        }
+      }
+
+      .outside_container{
+        .time_picker_modal_container{
+          top:-195px;
+        }
+      }
+
+    }
+
+    .duration-slider{
+      margin-top: 15px;
+      margin-left: 5px;
+
+
+      .input-range{
+        margin-left: 5px;
+        width: 100%;
+      }
+
+      .input-range__track--active{
+        background: $theme-color;
+      }
+
+      .input-range__slider{
+        background: $theme-color;
+        border-color: $theme-color;
+      }
+
+      .input-range__label-container{
+        font-size: 1.5em;
+        font-weight: bold;
+
+        line-height: 0;
+      }
+
+      .input-range__label--min{
+        display: none;
+      }
+
+      .input-range__label--max{
+        display: none;
+      }
+    }
+
+    .button-schedule-save{
+      .btn{
+        margin-top: 40px;
+        margin-left: 20px;
+
+        width: 100%;
+        border-radius: 0px;
+        height: 60px;
+      }
+    }
+  }
 }

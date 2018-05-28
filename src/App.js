@@ -23,7 +23,7 @@ const weatherIconMap = {
 }
 
 const CAMERA_URL = "http://192.168.0.220/ISAPI/Streaming/channels/101/picture?videoResolutionWidth=1920&videoResolutionHeight=1080"
-
+const GOOGLE_MAP_URL = "https://www.google.com/maps/embed/v1/directions?key=AIzaSyBM7VLazAkhlF4ytelXMKNBMFc1EHD9TVI&origin=Drenov+Gric+174f,Slovenia&destination=tbilisijska+57,Slovenia"
 
 class App extends Component {
   constructor(props){
@@ -198,7 +198,7 @@ class App extends Component {
       )
     }else if(displayedTab === 2){
       display = (
-        <iframe  height="480" width="100%" src={CAMERA_URL}></iframe>
+        <iframe  height="480" width="100%" src={GOOGLE_MAP_URL}></iframe>
       )
     }else if(displayedTab === 3){
       display = (
