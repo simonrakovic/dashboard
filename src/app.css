@@ -125,7 +125,11 @@
     height: 80px;
     border-radius: 0px;
     margin-left: 20px;
-    width: 44%; }
+    width: 44%;
+    background: white;
+    color: #6c757d;
+    border-color: #6c757d;
+    border-width: 2px; }
   .watering-container .schedule-container .time-picker {
     margin-left: 5px;
     margin-top: 15px; }
@@ -168,3 +172,13 @@
     width: 100%;
     border-radius: 0px;
     height: 60px; }
+
+.watering-container .table {
+  margin-left: 2px;
+  background: #6c757d; }
+  .watering-container .table .delete-button {
+    cursor: pointer; }
+  .watering-container .table th {
+    text-align: center; }
+  .watering-container .table td {
+    text-align: center; }

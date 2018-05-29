@@ -198,6 +198,11 @@ $text-color: #6c757d;
         border-radius: 0px;
         margin-left: 20px;
         width: 44%;
+
+        background: white;
+        color: $text-color;
+        border-color: $theme-color;
+        border-width: 2px;
       }
     }
 
@@ -274,6 +279,20 @@ $text-color: #6c757d;
         border-radius: 0px;
         height: 60px;
       }
+    }
+  }
+
+  .table{
+    margin-left: 2px;
+    background: $theme-color;
+    .delete-button{
+      cursor: pointer;
+    }
+    th{
+      text-align: center;
+    }
+    td{
+      text-align: center;
     }
   }
 }

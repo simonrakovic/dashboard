@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Col, Row, Container, Button, Label } from 'reactstrap';
+import { Col, Row, Container, Button, Label, Table} from 'reactstrap';
 import FontAwesome from 'react-fontawesome'
 
 import InputRange from 'react-input-range';
@@ -24,9 +24,9 @@ class WateringSystem extends Component {
 
 
       //////////timetable/////
-      schedules: null,
+      schedules: [],
       newSchedule: {
-        showeId: "",
+        showerId: 0,
         start_time: '12:00',
         duration: 30,
 
@@ -70,7 +70,26 @@ class WateringSystem extends Component {
 
   addSchedule(){
     let schedules = this.state.schedules
-    schedules.push(this.state.newSchedule)
+    let schedule =  this.state.newSchedule
+
+    schedules.push({
+      showerId: schedule.showerId,
+      start_time: schedule.start_time,
+      duration: schedule.duration,
+    })
+    this.setState({
+      schedules: schedules,
+      newSchedule: {
+        showerId: 0,
+        start_time: '12:00',
+        duration: 30,
+      }
+    })
+  }
+
+  deleteSchedule(index){
+    let schedules = this.state.schedules
+    schedules = schedules.filter((obj, i)=> i !== index)
     this.setState({schedules: schedules})
   }
 
@@ -96,6 +115,11 @@ class WateringSystem extends Component {
     this.setState({newSchedule: newSchedule})
   }
 
+  changeSelectedShowerSchedule(id){
+    let newSchedule = this.state.newSchedule
+    newSchedule.showerId = id
+    this.setState({newSchedule: newSchedule})
+  }
 
 
   render(){
@@ -154,15 +178,14 @@ class WateringSystem extends Component {
 
             <Col className="schedule-form" sm={6}>
               <Row className="shower-buttons">
-                <Button>Leva zalivalka</Button>
-                <Button>Desna zalivalka</Button>
+                <Button className={this.state.newSchedule.showerId === 0 ? "active": ""} onClick={()=>this.changeSelectedShowerSchedule(0)}>Leva zalivalka</Button>
+                <Button className={this.state.newSchedule.showerId === 1 ? "active": ""} onClick={()=>this.changeSelectedShowerSchedule(1)}>Desna zalivalka</Button>
               </Row>
               <Row className="time-picker">
                   <Label>Ura pričetka:</Label>
                   <TimePicker
-                    focus={this.state.time_picker_focus}
-                    onHourChange={()=>this.onHourChange()}
-                    onMinuteChange={()=>this.onMinuteChange()}
+
+
                     onTimeChange={(time)=>this.onTimeChange(time)}
                     colorPalette="dark"
                     timeMode="24"
@@ -183,13 +206,37 @@ class WateringSystem extends Component {
 
               </Row>
               <Row className="button-schedule-save">
-                <Button>Shrani</Button>
+                <Button onClick={()=>this.addSchedule()}>Shrani</Button>
               </Row>
             </Col>
             <Col sm={6}>
-
+              <Row>
+                <Table dark>
+                  <thead>
+                    <tr>
+                      <th>Zalivalka</th>
+                      <th>Ura</th>
+                      <th>Trajanje</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {
+                      this.state.schedules.map((schedule, i)=>{
+                        return(
+                          <tr key={i}>
+                            <td>{schedule.showerId === 0 ? "Leva":"Desna"}</td>
+                            <td>{schedule.start_time}</td>
+                            <td>{schedule.duration}</td>
+                            <td className="delete-button" onClick={()=>this.deleteSchedule(i)}><FontAwesome  name='times'/></td>
+                          </tr>
+                        )
+                      })
+                    }
+                  </tbody>
+                </Table>
+              </Row>
             </Col>
-
           </Row>
         )
       }
