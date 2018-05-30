@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { Col, Row, Container, Button, Label, Table} from 'reactstrap';
 import FontAwesome from 'react-fontawesome'
+import axios from 'axios'
 
 import InputRange from 'react-input-range';
 import 'react-input-range/lib/css/index.css'
@@ -44,6 +45,7 @@ class WateringSystem extends Component {
 
 
   toggleTabs(index){
+    if(index === 1)this.getAllSchedules()
     this.setState({selectedTab: index})
   }
 
@@ -65,32 +67,59 @@ class WateringSystem extends Component {
   //////////////////TIMETABLE //////////////////
   getAllSchedules(){
     // TODO: call api for all schedules
-    this.setState({schedules: null})
+    axios.get('/api/shower/schedules')
+	  .then( (response) => {
+
+      this.setState({schedules: response.data.schedules})
+	  })
+	  .catch(function (error) {
+	    console.log(error);
+	  });
   }
 
   addSchedule(){
     let schedules = this.state.schedules
     let schedule =  this.state.newSchedule
 
-    schedules.push({
-      showerId: schedule.showerId,
-      start_time: schedule.start_time,
-      duration: schedule.duration,
-    })
-    this.setState({
-      schedules: schedules,
-      newSchedule: {
-        showerId: 0,
-        start_time: '12:00',
-        duration: 30,
-      }
-    })
+
+    axios.post(`/api/shower/schedule/add/shower/${schedule.showerId}/${schedule.start_time}/${schedule.duration}`)
+	  .then( (response) => {
+      schedules.push({
+        id: response.data.id,
+        showerId: schedule.showerId,
+        start_time: schedule.start_time,
+        duration: schedule.duration,
+      })
+
+      this.setState({
+        schedules: schedules,
+        newSchedule: {
+          showerId: 0,
+          start_time: '12:00',
+          duration: 30,
+        }
+      })
+	  })
+	  .catch(function (error) {
+	    console.log(error);
+	  });
+
+
   }
 
   deleteSchedule(index){
-    let schedules = this.state.schedules
-    schedules = schedules.filter((obj, i)=> i !== index)
-    this.setState({schedules: schedules})
+
+    axios.delete(`/api/shower/schedule/${this.state.schedules[index].id}`)
+    .then( (response) => {
+
+      let schedules = this.state.schedules
+      schedules = schedules.filter((obj, i)=> i !== index)
+      this.setState({schedules: schedules})
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
   }
 
   onHourChange(){
