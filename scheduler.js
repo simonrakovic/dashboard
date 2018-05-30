@@ -25,7 +25,7 @@ class Scheduler{
   }
 }
 
-function init(schedules, fnStart, fnEnd){
+function init(schedules, fnStart){
   var scheudledJobs = {}
 
 
@@ -33,7 +33,7 @@ function init(schedules, fnStart, fnEnd){
     var startTime = moment(schedule.start_time, 'HH:mm')
 
     scheudledJobs[schedule.id] = {
-                                  start_job: nodeSchedule.scheduleJob({hour: startTime.hours(), minute: startTime.minutes()}, ()=>fnStart.bind(schedule)),
+                                  start_job: nodeSchedule.scheduleJob({hour: startTime.hours(), minute: startTime.minutes()}, ()=>fnStart(schedule)),
                                 }
   })
   return scheudledJobs

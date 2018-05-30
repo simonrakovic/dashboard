@@ -32,7 +32,7 @@ fs.readFile('schedules.json', 'utf8', function(err,data){
 																															console.log(schedule)
 																															var id = schedule.showerId === "0" ? "14":"15"
 
-																															/*
+
 																															axios.get(`http://192.168.0.106:5000/api/zalivaj/${id}/${schedule.duration}`)
 																															.then(function (response) {
 																																console.log(response);
@@ -40,7 +40,7 @@ fs.readFile('schedules.json', 'utf8', function(err,data){
 																															.catch(function (error) {
 																																console.log(error)
 																															});
-																															*/
+
 																														})
 
 })
@@ -154,7 +154,7 @@ router.post('/shower/schedule/add/shower/:id/:time/:duration', function(req, res
 																															console.log(schedule)
 																															var id = schedule.showerId === "0" ? "14":"15"
 
-																															axios.get(`${SHOWER_API_URL}/zalivaj/${id}/${schedule.duration}`)
+																															axios.get(`http://192.168.0.106:5000/api/zalivaj/${id}/${schedule.duration}`)
 																															.then(function (response) {
 																																console.log(response.data);
 																															})
