@@ -36,6 +36,8 @@ function init(schedules, fnStart){
                                   start_job: nodeSchedule.scheduleJob({hour: startTime.hours(), minute: startTime.minutes()}, ()=>fnStart(schedule)),
                                 }
   })
+
+    console.log(scheudledJobs)
   return scheudledJobs
 }
 
@@ -49,6 +51,7 @@ Scheduler.prototype.startNewSchedule = function(newSchedule, fnStart){
                                           start_job: nodeSchedule.scheduleJob({hour: startTime.hours(), minute: startTime.minutes()}, ()=>fnStart(newSchedule)),
 
                                         }
+  console.log(this.scheudledJobs)
 }
 
 Scheduler.prototype.cancleSchedule = function(scheduleId){

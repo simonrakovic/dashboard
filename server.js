@@ -146,7 +146,7 @@ router.post('/shower/schedule/add/shower/:id/:time/:duration', function(req, res
 			duration: req.params.duration
 		}
 		data.schedules.push(newSchedule)
-
+		
 		fs.writeFile('schedules.json', JSON.stringify(data), function(err){
 			if(err)res.send(err)
 			else{
