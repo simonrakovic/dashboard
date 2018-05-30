@@ -38,9 +38,23 @@ class WateringSystem extends Component {
     }
   }
 
+  componentDidMount(){
+    this.getShowerStatus()
+  }
+
   getShowerStatus(){
     // TODO: call api for status
-    this.setState({showerIsActive: true})
+    axios.get(`/api/shower/status`)
+  	.then( (response) => {
+      console.log(response.data)
+      if(response.data === "active"){
+        this.setState({showerIsActive: true})
+      }
+  	})
+  	.catch(function (error) {
+  		console.log(error)
+  	});
+  
   }
 
 
@@ -55,12 +69,25 @@ class WateringSystem extends Component {
 
   sendShowerRequest(){
     // TODO:  call api to start showering
-    this.setState({showerIsActive: true})
+    axios.get(`/api/shower/${this.state.selectedShowerButton}/start/${this.state.time}`)
+  	.then( (response) => {
+      console.log("hi")
+  		this.setState({showerIsActive: true})
+  	})
+  	.catch(function (error) {
+  		console.log(error)
+  	});
+
   }
 
   cancleShower(){
-    // TODO:  call api to stop showering
-    this.setState({showerIsActive: false})
+    axios.get(`/api/shower/stop`)
+  	.then( (response) => {
+  		this.setState({showerIsActive: false})
+  	})
+  	.catch(function (error) {
+  		console.log(error)
+  	});
   }
 
 
@@ -228,7 +255,7 @@ class WateringSystem extends Component {
                   <InputRange
                     step={5}
                     maxValue={60}
-                    minValue={5}
+                    minValue={0}
                     value={this.state.newSchedule.duration}
                     name="duration"
                     onChange={(e) => this.handleChangeSlider(e)} />

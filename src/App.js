@@ -72,7 +72,7 @@ class App extends Component {
     let cameraIsActive = this.state.cameraIsActive ? false:true
     let funId = this.state.refreshCameraFunId
     //reload img on every 2s
-    if(cameraIsActive)funId = setInterval(()=>{this.updateCameraImage()},2000)
+    if(cameraIsActive)funId = setInterval(()=>{this.updateCameraImage()},1000)
     //on view changed, clear refresh function
     else if(funId)clearInterval(funId)
     setTimeout(()=>{

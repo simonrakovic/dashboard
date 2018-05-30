@@ -1,9 +1,27 @@
 var nodeSchedule = require('node-schedule');
 var moment = require('moment');
 
+/*
+class Schedule{
+  constructor(time, durration, showerId, jobId, startFunction){
+    this.time = time
+    this.durration = durration
+    this.showerId = showerId
+    this.jobId = jobId
+
+    this.startFunction = startFunction()
+  }
+
+  Schedule.prototype.setStartFunction = function(startFunction){
+    this.startFunction = startFunction()
+  }
+
+}
+*/
+
 class Scheduler{
-  constructor(schedules, fnStart, fnEnd){
-    this.scheudledJobs = init(schedules, fnStart, fnEnd)
+  constructor(schedules, fnStart){
+    this.scheudledJobs = init(schedules, fnStart)
   }
 }
 
@@ -13,12 +31,9 @@ function init(schedules, fnStart, fnEnd){
 
   schedules.forEach((schedule)=>{
     var startTime = moment(schedule.start_time, 'HH:mm')
-    var endTime = moment(schedule.start_time, 'HH:mm').add(schedule.duration, 'm')
-      console.log(startTime.hours()+":"+startTime.minutes())
-      console.log(endTime.hours()+":"+endTime.minutes())
+
     scheudledJobs[schedule.id] = {
-                                  start_job: nodeSchedule.scheduleJob({hour: startTime.hours(), minute: startTime.minutes()}, ()=>fnStart()),
-                                  end_job: nodeSchedule.scheduleJob({hour: endTime.hours(), minute: endTime.minutes()}, ()=>fnEnd())
+                                  start_job: nodeSchedule.scheduleJob({hour: startTime.hours(), minute: startTime.minutes()}, ()=>fnStart.bind(schedule)),
                                 }
   })
   return scheudledJobs
@@ -27,19 +42,18 @@ function init(schedules, fnStart, fnEnd){
 ///////////////////////////////////// PROTOTYPES ///////////////////////////////////////77
 
 
-Scheduler.prototype.startNewSchedule = function(newSchedule){
+Scheduler.prototype.startNewSchedule = function(newSchedule, fnStart){
   var startTime = moment(newSchedule.start_time, 'HH:mm')
-  var endTime = startTime.add(newSchedule.duration, 'm')
+
   this.scheudledJobs[newSchedule.id] = {
-                                          start_job: nodeSchedule.scheduleJob({hour: startTime.hours(), minute: startTime.minutes()}, fnStart()),
-                                          end_job: nodeSchedule.scheduleJob({hour: endTime.hours(), minute: endTime.minutes()}, fnEnd())
+                                          start_job: nodeSchedule.scheduleJob({hour: startTime.hours(), minute: startTime.minutes()}, ()=>fnStart(newSchedule)),
+
                                         }
 }
 
 Scheduler.prototype.cancleSchedule = function(scheduleId){
   if(this.scheudledJobs[scheduleId]){
     this.scheudledJobs[scheduleId].start_job.cancel()
-    this.scheudledJobs[scheduleId].end_job.cancel()
   }
 }
 

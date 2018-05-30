@@ -22,20 +22,29 @@ app.use(express.static(path.join(__dirname, 'build')))
 app.use(express.static(path.join(__dirname, 'public')))
 app.use('/font',express.static(path.join(__dirname, 'fonts')))
 var port = process.env.PORT || 4000;        // set our port
+const SHOWER_API_URL = "http://192.168.0.106:5000/api"
 
+fs.readFile('schedules.json', 'utf8', function(err,data){
+	var data = JSON.parse(data)
 
-fs.readFile('schedules.json','utf8',function(err,data){
 	if(err)console.log(err)
-	else{
-		var scheduler = new Scheduler(
-			[{"id":1527673258652,"showeId":"0","start_time":"15:44","duration":"1"}],
-			function(){console.log("start")},
-			function(){console.log("stop")},
-		)
-	}
+	else app.locals.scheduler = new Scheduler(data.schedules, function(schedule){
+																															console.log(schedule)
+																															var id = schedule.showerId === "0" ? "14":"15"
 
-	scheduler.cancleSchedule(1527673258652)
+																															/*
+																															axios.get(`http://192.168.0.106:5000/api/zalivaj/${id}/${schedule.duration}`)
+																															.then(function (response) {
+																																console.log(response);
+																															})
+																															.catch(function (error) {
+																																console.log(error)
+																															});
+																															*/
+																														})
+
 })
+
 
 // ROUTES FOR OUR API
 // =============================================================================
@@ -53,7 +62,7 @@ router.get('/camera/alarm/stream', sse.init);
 
 
 try{
-	/*
+
 	//initialize connection to hikvision camera alarm stream
 	var options = {
 		host	: '192.168.0.220',
@@ -69,7 +78,7 @@ try{
 			sse.send({active:true});
 		}
 	});
-	*/
+
 }catch(e){
 	console.log(e)
 }
@@ -87,15 +96,34 @@ router.get('/weather', function(req, res){
 
 
 router.get('/shower/status', function(req, res){
-	// TODO: call api to get status
+	axios.get(`${SHOWER_API_URL}/status`)
+	.then(function (response) {
+		res.send(response.data);
+	})
+	.catch(function (error) {
+		console.log(error)
+	});
 })
 
 router.get('/shower/:id/start/:duration', function(req, res){
-	// TODO: call api to start showering
+	var id = req.params.id === "0" ? "14":"15"
+	axios.get(`${SHOWER_API_URL}/zalivaj/${id}/${req.params.duration}`)
+	.then(function (response) {
+		res.send(response.data);
+	})
+	.catch(function (error) {
+		console.log(error)
+	});
 })
 
 router.get('/shower/stop', function(req, res){
-	// TODO: call api to stop showering
+	axios.get(`${SHOWER_API_URL}/stop`)
+	.then(function (response) {
+		res.send(response.data);
+	})
+	.catch(function (error) {
+		console.log(error)
+	});
 })
 
 router.get('/shower/schedules', function(req, res){
@@ -111,16 +139,32 @@ router.post('/shower/schedule/add/shower/:id/:time/:duration', function(req, res
 		data = JSON.parse(data)
 
 		let scheduleId = Date.now()
-		data.schedules.push({
+		let newSchedule = {
 			id: scheduleId,
-			showeId: req.params.id,
+			showerId: req.params.id,
 			start_time: req.params.time,
 			duration: req.params.duration
-		})
+		}
+		data.schedules.push(newSchedule)
 
 		fs.writeFile('schedules.json', JSON.stringify(data), function(err){
 			if(err)res.send(err)
-			else res.send({id: scheduleId})
+			else{
+				app.locals.scheduler.startNewSchedule(newSchedule, function(schedule){
+																															console.log(schedule)
+																															var id = schedule.showerId === "0" ? "14":"15"
+
+																															axios.get(`${SHOWER_API_URL}/zalivaj/${id}/${schedule.duration}`)
+																															.then(function (response) {
+																																console.log(response.data);
+																															})
+																															.catch(function (error) {
+																																console.log(error)
+																															});
+
+																														})
+				res.send({id: scheduleId})
+			}
 		})
 	})
 })
@@ -135,7 +179,10 @@ router.delete('/shower/schedule/:id', function(req, res){
 
 		fs.writeFile('schedules.json', JSON.stringify(data), function(err){
 			if(err)res.send(err)
-			else res.send("schedule delited")
+			else {
+				app.locals.scheduler.cancleSchedule(req.params.id)
+				res.send("schedule delited")
+			}
 		})
 	})
 })
