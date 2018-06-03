@@ -78,7 +78,7 @@ class App extends Component {
     setTimeout(()=>{
       this.setState({cameraIsActive:false})
       clearInterval(funId)
-    },20000);
+    },60000);
     this.setState({cameraIsActive: cameraIsActive, refreshCameraFunId: funId})
   }
 

@@ -54,7 +54,7 @@ class WateringSystem extends Component {
   	.catch(function (error) {
   		console.log(error)
   	});
-  
+
   }
 
 
@@ -281,7 +281,7 @@ class WateringSystem extends Component {
                       this.state.schedules.map((schedule, i)=>{
                         return(
                           <tr key={i}>
-                            <td>{schedule.showerId === 0 ? "Leva":"Desna"}</td>
+                            <td>{schedule.showerId === "0" ? "Leva":"Desna"}</td>
                             <td>{schedule.start_time}</td>
                             <td>{schedule.duration}</td>
                             <td className="delete-button" onClick={()=>this.deleteSchedule(i)}><FontAwesome  name='times'/></td>
