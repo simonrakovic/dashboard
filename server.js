@@ -9,6 +9,7 @@ var bodyParser = require('body-parser');
 var axios = require('axios');
 var fs = require('fs')
 
+var robot = require("robotjs");
 var ipcamera	= require('./hikvision');
 var Scheduler = require('./scheduler')
 
@@ -60,7 +61,6 @@ app.get('/', function(req, res) {
 // more routes for our API will happen here
 router.get('/camera/alarm/stream', sse.init);
 
-
 try{
 
 	//initialize connection to hikvision camera alarm stream
@@ -75,6 +75,7 @@ try{
 	hikvision.on('alarm', function(code,action,index) {
 		if (code === 'VideoMotion'   && action === 'Start'){
 			console.log(getDateTime() + ' Channel ' + index + ': Video Motion Detected')
+			robot.moveMouse(1, 1);
 			sse.send({active:true});
 		}
 	});
