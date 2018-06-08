@@ -22,6 +22,16 @@ const weatherIconMap = {
   "partly-cloudy-night": "wi wi-night-alt-cloudy"
 }
 
+const weekDays = {
+  0: "Nedelja",
+  1: "Ponedeljek",
+  2: "Torek",
+  3: "Sreda",
+  4: "Četrtek",
+  5: "Petek",
+  6: "Sobota",
+}
+
 const CAMERA_URL = "http://192.168.0.220/ISAPI/Streaming/channels/101/picture?videoResolutionWidth=1920&videoResolutionHeight=1080"
 const GOOGLE_MAP_URL = "https://www.google.com/maps/embed/v1/directions?key=AIzaSyBM7VLazAkhlF4ytelXMKNBMFc1EHD9TVI&origin=Drenov+Gric+174f,Slovenia&destination=tbilisijska+57,Slovenia"
 
@@ -108,15 +118,7 @@ class App extends Component {
               <Col md={12}>
                 <div  className="current-weather">
                   <div className="weather-icon">
-                    {
-                      Object.keys(weatherIconMap).map((key, i)=>{
-                        if(key === this.state.weather.currently.icon){
-                          return(
-                            <i key={i} className={weatherIconMap[key]}></i>
-                          )
-                        }
-                      })
-                    }
+                    <i className={weatherIconMap[this.state.weather.currently.icon]}></i>
                   </div>
                   <div className="current-temp">
                     {
@@ -172,15 +174,8 @@ class App extends Component {
                       <Row className="hourly-weather-data-column">
                         <div className="hour">{moment(timestamp).format('HH:mm')}</div>
                         <div className="weather-icon">
-                          {
-                            Object.keys(weatherIconMap).map((key, i)=>{
-                              if(key === data.icon){
-                                return(
-                                  <i key={i} className={weatherIconMap[key]}></i>
-                                )
-                              }
-                            })
-                          }
+                          <i key={i} className={weatherIconMap[data.icon]}></i>
+
                         </div>
                         <div className="temperature">
                           {
@@ -193,6 +188,28 @@ class App extends Component {
                 }
               })
             }
+          </Row>
+        </Col>
+      )
+    }else if(displayedTab === 1 && this.state.weather){
+      display = (
+          <Col md={12}>
+          <Row className="o-dailyweather" >
+            {
+              this.state.weather.daily.data.map((day, i)=>{
+                if( i > 0 && i < 5){
+                  return(
+                    <Col className="c-dailyweather-column" key={i} md={3}>
+                      <Row className="p-title"><p>{weekDays[moment(new Date(day.time*1000)).day()]}</p> </Row>
+                      <Row className="p-weathericon"><p><i key={i} className={weatherIconMap[day.icon]}></i></p> </Row>
+                      <Row className="p-noontemps"><p>{Math.floor((day.temperatureHigh-32)/(9/5))}&deg;C</p> </Row>
+                      <Row className="p-morningtemps"><p>{Math.floor((day.temperatureLow-32)/(9/5))}&deg;C</p> </Row>
+                    </Col>
+                  )
+                }
+              })
+            }
+
           </Row>
         </Col>
       )
@@ -239,7 +256,7 @@ class App extends Component {
                       </Row>
                     </Col>
                     <Col md={10}>
-                      <Row>
+                      <Row className="o-container">
                         {display}
                       </Row>
                     </Col>

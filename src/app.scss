@@ -2,6 +2,11 @@
 $theme-color: #6c757d;
 $text-color: #6c757d;
 
+.o-container{
+  height: 100%;
+
+}
+
 .btn{
   box-shadow: none!important;
 }
@@ -19,6 +24,8 @@ $text-color: #6c757d;
     font-size: 8em;
   }
 }
+
+
 ////////////////////////////////////////////////////////////
 .current-weather{
   text-align: center;
@@ -77,6 +84,41 @@ $text-color: #6c757d;
       font-weight: bold;
       width: 100%;
     }
+  }
+}
+/////////////////////////////////////////////////////////////
+.o-dailyweather{
+  height: 100%;
+}
+
+.c-dailyweather-column{
+  height: 100%;
+  border-right: 1px solid $theme-color;
+  color: $text-color;
+
+  div{
+    height: 25%;
+  }
+
+  p{
+    line-height: 120px;
+    font-size: 1.8em;
+    margin: 0 auto;
+  }
+
+  .p-title{
+
+
+    text-decoration: underline;
+  }
+
+  .p-weathericon{
+    font-size: 2.1em;
+  }
+
+  .p-noontemps{
+    font-weight: bold;
+    font-size: 1.2em;
   }
 }
 
@@ -187,6 +229,11 @@ $text-color: #6c757d;
       font-size: 2em;
     }
   }
+
+
+////////////////////////////////////////////////////
+
+
 ///////////////////////////////////////////////////
   .schedule-container{
     margin-top: 20px;
